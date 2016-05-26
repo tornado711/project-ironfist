@@ -117,6 +117,19 @@ IMPORT_?MakeId@resourceManager@@QAEKPADH@Z = 1
 IMPORT_?Read13@resourceManager@@QAEXPAC@Z = 1
 IMPORT_?ReadBlock@resourceManager@@QAEXPACK@Z = 1
 
+;;sound
+IMPORT_?SystemOptionsHandler@@YIHAAUtag_message@@@Z = 1
+?SystemOptionsHandler@@YIHAAUtag_message@@@Z_clone EQU ?SystemOptionsHandler_orig@@YIHAAUtag_message@@@Z
+IMPORT_?CDStartup@soundManager@@QAEXXZ = 1
+IMPORT_?CDPlay@soundManager@@QAEXHHHH@Z = 1
+?CDPlay@soundManager@@QAEXHHHH@Z_clone EQU CDPlay_orig@soundManager@@QAEXHHHH@Z
+IMPORT_?CDStop@soundManager@@QAEXXZ = 1
+?CDStop@soundManager@@QAEXXZ_clone EQU ?CDStop_orig@soundManager@@QAEXXZ
+IMPORT_?CDSetVolume@soundManager@@QAEXHH@Z = 1
+?CDSetVolume@soundManager@@QAEXHH@Z_clone EQU ?CDSetVolume_orig@soundManager@@QAEXHH@Z
+IMPORT_?ConvertVolume@soundManager@@QAEHHH@Z = 1
+?ConvertVolume@soundManager@@QAEHHH@Z_clone EQU ?ConvertVolume_orig@soundManager@@QAEHHH@Z
+
 ;;creatures
 
 IMPORT_?cArmyFrameFileNames@@3PAPADA = 1

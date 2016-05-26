@@ -65,7 +65,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\..\ironfist\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);wing32.lib;mss32.lib;smackw32.lib;PocoNetmtd.lib;PocoFoundationmtd.lib;xerces-c_static_3D.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;bass.lib;%(AdditionalDependencies);wing32.lib;mss32.lib;smackw32.lib;PocoNetmtd.lib;PocoFoundationmtd.lib;xerces-c_static_3D.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
@@ -153,6 +153,7 @@
     <ClCompile Include="..\src\cpp\scripting\lua_utils.cpp" />
     <ClCompile Include="..\src\cpp\scripting\scripting.cpp" />
     <ClCompile Include="..\src\cpp\scripting\consts.cpp" />
+    <ClCompile Include="..\src\cpp\sound\cd_music.cpp" />
     <ClCompile Include="..\src\cpp\spell\spells.cpp" />
     <ClCompile Include="..\src\cpp\town\town.cpp" />
   </ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="..\src\cpp\gui\dialog.h" />
     <ClInclude Include="..\src\cpp\gui\gui.h" />
     <ClInclude Include="..\src\cpp\import_val.h" />
+    <ClInclude Include="..\src\cpp\lib\bass\bass.h" />
     <ClInclude Include="..\src\cpp\lib\lua\src\lapi.h" />
     <ClInclude Include="..\src\cpp\lib\lua\src\lauxlib.h" />
     <ClInclude Include="..\src\cpp\lib\lua\src\lcode.h" />

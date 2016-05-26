@@ -76,6 +76,12 @@
     <Filter Include="Header Files\sound">
       <UniqueIdentifier>{628f1e93-a2a7-481b-b913-eeeb9d5f8499}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\lib">
+      <UniqueIdentifier>{9e9b6a29-6f4a-4c53-8535-b241133f4e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sound">
+      <UniqueIdentifier>{11524d73-8e71-4f98-af7c-396fcd34a5c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\init.cpp">
@@ -255,6 +261,9 @@
     <ClCompile Include="..\src\cpp\analytics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cpp\sound\cd_music.cpp">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cpp\stdafx.h">
@@ -433,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="..\src\cpp\analytics.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cpp\lib\bass\bass.h">
+      <Filter>Header Files\lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

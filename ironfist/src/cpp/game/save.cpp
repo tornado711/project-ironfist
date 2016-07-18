@@ -532,9 +532,12 @@ int game::SaveGame(char *saveFile, int autosave, signed char baseGame) {
 		m.hero().push_back(WriteHeroXML(&this->heroes[i]));
 	}
 
-	m.script(GetScriptContents());
-	SaveMapVariables(m);
-
+    /*
+    if (GetScriptContents() != "") {
+      m.script(GetScriptContents());
+      SaveMapVariables(m);
+    }
+    */
 	xml_schema::namespace_infomap infomap;
 	infomap[""].name = "ironfist_map";
 	infomap[""].schema = "map_xml.xsd";

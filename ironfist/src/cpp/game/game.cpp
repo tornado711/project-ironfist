@@ -101,3 +101,19 @@ void __fastcall CheckEndGame(int a, int b) {
     }
   }
 }
+
+/*
+ * Begin quick-and-dirty hack
+ */
+
+class philAI {
+
+  char _; // Yes, this is a 1-byte object.
+
+public:
+  void RedistributeTroops(armyGroup *, armyGroup *, int, int, int, int, int);
+};
+
+void  philAI::RedistributeTroops(class armyGroup *, class armyGroup *, int, int, int, int, int) {
+
+}

@@ -226,3 +226,7 @@ IMPORT_?Open@townManager@@UAEHH@Z = 1
 ?Open@townManager@@UAEHH@Z_clone EQU ?Open_orig@townManager@@QAEHH@Z ; Changing U to Q changes virtual method to non
 IMPORT_?CheckEndGame@@YIXHH@Z = 1
 ?CheckEndGame@@YIXHH@Z_clone EQU ?CheckEndGame_orig@@YIXHH@Z
+
+
+;; AI
+IMPORT_?RedistributeTroops@philAI@@QAEXPAVarmyGroup@@0HHHHH@Z = 1

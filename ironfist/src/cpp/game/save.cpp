@@ -254,6 +254,7 @@ void SaveMapVariables(ironfist_map::map_t& m) {
 }
 
 void game::LoadGame(char* filnam, int newGame, int a3) {
+	this->ResetIronfistGameState();
 	if(newGame) {
 		this->SetupOrigData();
 

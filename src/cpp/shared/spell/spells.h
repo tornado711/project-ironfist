@@ -2,22 +2,21 @@
 #define SPELLS_H
 
 #include "adventure/adv.h"
+#include "spell/spell_constants.h"
 
 #pragma pack(push, 1)
-
-#define NUM_SPELLS 66
 
 struct SSpellInfo {
   char soundName[9];
   char level;
-  char spriteIdx;
-  char creatureEffectAnimationIdx;
+  char magicBookIconIdx;
+  char creatureEffectAnimationIdx; // gCombatFxNames
   __int16 appearingChance;
   char cost;
   char nonMagicFactionAppearanceChance;
   int field_10;
   char field_14;
-  unsigned __int8 attributes;
+  char attributes;
 };
 
 SSpellInfo gsSpellInfo[];
@@ -94,6 +93,7 @@ enum Spell : int {
   SPELL_NONE = -1,
 
   SPELL_AWARENESS = 65,
+  SPELL_SHADOW_MARK = 66,
 };
 
 
@@ -127,11 +127,10 @@ enum STACK_MODIFYING_EFFECT {
   EFFECT_ANTI_MAGIC = 12,
   EFFECT_STONESKIN = 13,
   EFFECT_STEELSKIN = 14,
+  EFFECT_SHADOW_MARK = 16
 };
 
-char* gSpellNames[];
-
-extern int __fastcall GetManaCost(int, hero*);
+extern int __fastcall GetManaCost(int, class hero*);
 int GetManaCost(int);
 
 #pragma pack(pop)

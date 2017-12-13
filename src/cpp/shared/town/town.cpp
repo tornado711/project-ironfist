@@ -1,5 +1,5 @@
 #include "base.h"
-#include "msg.h"
+#include "gui/msg.h"
 
 #include "adventure/adv.h"
 #include "adventure/map.h"
@@ -7,11 +7,21 @@
 #include "game/game.h"
 #include "gui/gui.h"
 #include "resource/resources.h"
-#include "scripting/hook.h"
+#include "scripting/callback.h"
+#include "sound/sound.h"
 #include "spell/spells.h"
 #include "town/town.h"
 
 #include<sstream>
+
+unsigned long gTownEligibleBuildMask[] = {
+  0x3FF8BF9F,
+  0x1BF8BF9F,
+  0xFF8BF9F,
+  0x69F8BF9F,
+  0x35F8BF9F,
+  0x1FF8BF9B
+};
 
 int BuildingBuilt(town* twn, int building) {
 	return (twn->buildingsBuiltFlags & (1 << building)) ? 1 : 0;
@@ -203,9 +213,10 @@ void town::SelectSpells() {
 }
 
 int townManager::Open(int idx) {
-	int res = this->Open_orig(idx);
-	ScriptSignal(SCRIPT_EVT_TOWN_LOADED, this->castle->name);
-	return res;
+  int res = this->Open_orig(idx);
+  ScriptCallback("OnTownOpen", this->castle->name);
+  gpSoundManager->SwitchAmbientMusic(townTheme[this->castle->factionID]);
+  return res;
 }
 
 void town::SetNumSpellsOfLevel(int l, int n) {
@@ -234,7 +245,7 @@ void townManager::SetupMage(heroWindow *mageGuildWindow) {
 				GUISetImgIdx(mageGuildWindow, SPELL_SCROLLS+4*i+j, 0);
 				GUISetImgIdx(mageGuildWindow,
 							 SPELL_ICONS+4*i+j,
-							  gsSpellInfo[this->castle->mageGuildSpells[i][j]].spriteIdx);
+							  gsSpellInfo[this->castle->mageGuildSpells[i][j]].magicBookIconIdx);
 				if(smallFont->LineLength(gSpellNames[this->castle->mageGuildSpells[i][j]], 74) == 1 ) {
 					int c = GetManaCost(this->castle->mageGuildSpells[i][j]);
 					sprintf(gText, "%s\n[%d]", gSpellNames[this->castle->mageGuildSpells[i][j]], c);
@@ -295,8 +306,6 @@ char *__fastcall GetBuildingName(int faction, int building) {
 }
 
 int recruitUnit::Open(int x) {
-  std::ostringstream msg;
-  msg << this->creatureType;
-  ScriptSignal(SCRIPT_EVT_RECRUIT, msg.str());
+  ScriptCallback("OnUnitRecruit", this->creatureType);
   return this->Open_orig(x);
 }

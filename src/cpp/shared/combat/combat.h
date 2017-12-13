@@ -2,6 +2,7 @@
 #define COMBAT_MANAGER_H
 
 #include <string>
+#include <vector>
 
 #include "gui/gui.h"
 #include "graphics.h"
@@ -11,7 +12,19 @@
 #include "resource/resources.h"
 
 #include "combat/animation.h"
+#include "combat/army.h"
 #include "combat/creatures.h"
+
+#define MAX_STACKS 21
+#define NUM_HEXES 117
+
+enum BRIDGE_STATUS {
+  BRIDGE_OPEN = 0x0,
+  BRIDGE_CLOSING_1 = 0x1,
+  BRIDGE_CLOSING_2 = 0x2,
+  BRIDGE_DESTROYED = 0x3,
+  BRIDGE_CLOSED = 0x4,
+};
 
 #pragma pack(push, 1)
 
@@ -40,100 +53,6 @@ public:
 
 int __fastcall ValidHex(int);
 
-
-class army
-{
-public:
-  char mightBeIsAttacking;
-  char animatingRangedAttack;
-  char mightBeAttackAnimIdx;
-  char field_3;
-  char field_4;
-  char field_5;
-  int field_6;
-  H2RECT stackSizeDispBounds;
-  H2RECT field_1A;
-  H2RECT bounds;
-  H2RECT effectAnimationBounds;
-  int field_4A;
-  float field_4E;
-  int targetOwner;
-  int targetStackIdx;
-  int targetNeighborIdx;
-  int field_5E;
-  int targetHex;
-  int probablyIsNeedDrawSpellEffect;
-  int mirroredIdx;
-  int mirrorIdx;
-  int lifespan;
-  int creatureIdx;
-  int occupiedHex;
-  int animationType;
-  int animationFrame;
-  int facingRight;
-  int field_8A;
-  int field_8E;
-  int initialQuantity;
-  int quantity;
-  unsigned int previousQuantity;
-  int temporaryQty;
-  int damage;
-  int armyIdx;
-  int otherBadLuckThing;
-  int speed;
-  int field_B2;
-  int luckStatus;
-  tag_monsterInfo creature;
-  __int16 field_D4;
-  int damageTakenDuringSomeTimePeriod;
-  int hasTakenLosses;
-  int dead;
-  int spellEnemyCreatureAbilityIsCasting;
-  int owningSide;
-  int stackIdx;
-  int baseFidgetTime;
-  int morale;
-  int luck;
-  int field_FA;
-  int yDrawOffset;
-  int xDrawOffset;
-  int numActiveEffects;
-  char effectStrengths[19];
-  int field_11D;
-  int hitByHydraAttack;
-  void *field_125;
-  SMonFrameInfo frameInfo;
-  icon *creatureIcon;
-  icon *missileIcon;
-  sample *combatSounds[7];
-  
-  void LoadResources();
-  int FlyTo(int hex);
-  int ValidFlight(int hex, int);
-  int WalkTo(int hex);
-  void MoveTo(int hex);
-  
-  void MoveAttack(int,int);
-  void MoveAttack_orig(int,int);
-
-  int MidX();
-  int MidY();
-  void DoAttack(int);
-  void DoAttack_orig(int);
-  void SpecialAttack();
-  void SpecialAttack_orig();
-  float SpellCastWorkChance(int);
-  float SpellCastWorkChance_orig(int);
-  void CheckLuck();
-  void DamageEnemy(class army *, int *, int *, int, int);
-  int SpellCastWorks(int);
-  void PowEffect(int, int, int, int);
-  void WaitSample(int);
-  void CancelSpellType(int);
-  int GetAdjacentCellIndex(int, int);
-  void ProcessDeath(int a2);
-};
-
 class combatManager : public baseManager
 {
 public:
@@ -141,9 +60,9 @@ public:
   char _1[768];
   char combatMessageRow1[120];
   char combatMessageRow2[120];
-  char field_42A[117];
-  char field_49F[117];
-  hexcell combatGrid[117];
+  char field_42A[NUM_HEXES];
+  char field_49F[NUM_HEXES];
+  hexcell combatGrid[NUM_HEXES];
   int terrainType;
   int combatFieldFringeID;
   int field_31E6;
@@ -175,8 +94,8 @@ public:
   char field_33A1;
   char field_33A2;
   char field_33A3[2];
-  int heroIconIdxRelated[2];
-  int countRelatedToSpellAnimation[2];
+  int heroAnimationType[2];
+  int heroAnimationFrameCount[2];
   int heroType[2];
   int field_33BD[2];
   icon *heroIcon[2];
@@ -197,8 +116,8 @@ public:
   int field_353F;
   int field_3543;
   int numCreatures[2];
-  army creatures[2][21];
-  int otherCurrentSideThing;
+  army creatures[2][MAX_STACKS];
+  int otherCurrentSideThing; // activeStackOwner
   int someSortOfStackIdx;
   int field_F2AB;
   int currentActionSide;
@@ -246,7 +165,7 @@ public:
   char shouldVanish[2][20];
   char anyStacksShouldVanish;
   char combatBackgroundFilename[13];
-  char hexNeighbors[117][6];
+  char hexNeighbors[NUM_HEXES][6];
   heroWindow *combatEndWindow;
   int current_spell_id;
   int winningSide;
@@ -276,6 +195,33 @@ public:
   void PowEffect(int,int,int,int);
   void MakeCreaturesVanish();
   void ArcShot(icon *icn, int fromX, int fromY, int targX, int targY);
+  void LowerDoor();
+  void TestRaiseDoor();
+  int ShotIsThroughWall(int side, signed int occupiedHex, signed int targHex);
+  void ModifyDamageForArtifacts(long *, int, hero *, hero *);
+  void RippleCreature(int side, int stackIdx, int a4);
+  void DoBlast(int hexIdx, int spell);
+  void ChainLightning(int targetHex, int power);
+  void CastMassSpell(int spell, signed int spellpower);
+  void MirrorImage(int hex);
+  void SpellMessage(int spell, int hex);
+  void ShowSpellMessage(int isCreatureAbility, int spell, army *stack);
+  void BloodLustEffect(army *a2, int flagAdditions);
+  void TurnToStone(army *stack);
+  void Fireball(int hexIdx, int spell);
+  void MeteorShower(int);
+  void ElementalStorm();
+  void Armageddon();
+  void Earthquake();
+  void DefaultSpell(int hexIdx);
+  void ShowSpellCastFailure(army *, int);
+  void CheckChangeSelector();
+  void ShootMissile(int, int, int, int, float *, icon *);
+  int ValidSpellTarget(int spell, int hexIdx);
+  void SetupCombat(int arg0, int arg1, hero *h1, armyGroup *a1, town *t, hero *h2, armyGroup *a2, int arg2, int arg3, int arg4);
+  void SetupCombat_orig(int arg0, int arg1, hero *h1, armyGroup *a1, town *t, hero *h2, armyGroup *a2, int arg2, int arg3, int arg4);
+  void ResetRound_orig();
+  void ResetRound();
 };
 
 extern combatManager* gpCombatManager;
@@ -283,6 +229,9 @@ extern combatManager* gpCombatManager;
 extern int gbNoShowCombat;
 
 void __fastcall ModifyFrameInfo(struct SMonFrameInfo *frm, int creature);
+bool IsCastleWall(int hexIdx);
+bool IsAICombatTurn();
+std::vector<COORD> MakeCatapultArc(int numPoints, bool lefttoright, float fromX, float fromY, float targX, float targY);
 
 #pragma pack(pop)
 

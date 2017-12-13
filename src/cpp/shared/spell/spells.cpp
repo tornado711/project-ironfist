@@ -8,75 +8,6 @@
 #include "gui/dialog.h"
 #include "sound/sound.h"
 
-char *gSpellNames[] = {
-  "Fireball",
-  "Fireblast",
-  "Lightning Bolt",
-  "Chain Lightning",
-  "Teleport",
-  "Cure",
-  "Mass Cure",
-  "Resurrect",
-  "Resurrect True",
-  "Haste",
-  "Mass Haste",
-  "Slow",
-  "Mass Slow",
-  "Blind ",
-  "Bless",
-  "Mass Bless",
-  "Stoneskin",
-  "Steelskin",
-  "Curse",
-  "Mass Curse",
-  "Holy Word",
-  "Holy Shout",
-  "Anti-Magic",
-  "Dispel Magic",
-  "Mass Dispel",
-  "Magic Arrow",
-  "Berzerker",
-  "Armageddon",
-  "Elemental Storm",
-  "Meteor Shower",
-  "Paralyze",
-  "Hypnotize",
-  "Cold Ray",
-  "Cold Ring",
-  "Disrupting Ray",
-  "Death Ripple",
-  "Death Wave",
-  "Dragon Slayer",
-  "Blood Lust",
-  "Animate Dead",
-  "Mirror Image",
-  "Shield",
-  "Mass Shield",
-  "Summon Earth Elemental",
-  "Summon Air Elemental",
-  "Summon Fire Elemental",
-  "Summon Water Elemental",
-  "Earthquake",
-  "View Mines",
-  "View Resources",
-  "View Artifacts",
-  "View Towns",
-  "View Heroes",
-  "View All",
-  "Identify Hero",
-  "Summon Boat",
-  "Dimension Door",
-  "Town Gate",
-  "Town Portal",
-  "Visions",
-  "Haunt",
-  "Set Earth Guardian",
-  "Set Air Guardian",
-  "Set Fire Guardian",
-  "Set Water Guardian",
-  "Awareness"
-};
-
 char *gSpellDesc[] =
 {
   "{Fireball}\n\nCauses a giant fireball to strike the selected area, damaging all nearby creatures.",
@@ -144,7 +75,8 @@ char *gSpellDesc[] =
   "{Set Air Guardian}\n\nSets Air Elementals to guard a mine against enemy armies.",
   "{Set Fire Guardian}\n\nSets Fire Elementals to guard a mine against enemy armies.",
   "{Set Water Guardian}\n\nSets Water Elementals to guard a mine against enemy armies.",
-  "{Awareness}\n\nExplores a large area around your hero."
+  "{Awareness}\n\nExplores a large area around your hero.",
+  "{Shadow Mark}\n\nMarked creature receives 150% damage from your troops for 1 turn"
 };
 
 SSpellInfo gsSpellInfo[] = {
@@ -216,6 +148,8 @@ SSpellInfo gsSpellInfo[] = {
 
 	//awareness
 	{"", 1, 55, 0, 700, 20, 10, 0, 0, ATTR_ADVENTURE_SPELL},
+  //shadow mark
+  {"shdwmark", 2, 66, 33, 150, 3, 10, 0x0A0A0A0A, 0x0A, ATTR_COMMON_SPELL | ATTR_COMBAT_SPELL | ATTR_DURATIONED_SPELL}
 };
 
 #define DD_MOVEMENT_COST 225

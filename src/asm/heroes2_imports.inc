@@ -76,6 +76,10 @@ IMPORT_??2@YAPAXI@Z = 1
 ??3@YAXPAX@Z EQU _op_del
 IMPORT_??3@YAXPAX@Z = 1
 
+;; executive
+IMPORT_?AddManager@executive@@QAEHPAVbaseManager@@H@Z = 1
+?AddManager@executive@@QAEHPAVbaseManager@@H@Z_clone EQU ?AddManager_orig@executive@@QAEHPAVbaseManager@@H@Z
+
 ;;init
 IMPORT_?InitMainClasses@@YIXXZ = 1
 IMPORT_?DeleteMainClasses@@YIXXZ = 1
@@ -85,6 +89,10 @@ IMPORT_?SetupCDDrive@@YIHXZ = 1
 IMPORT_?SetupCDRom@@YIXXZ = 1
 IMPORT_?SetupGame@game@@QAEHXZ = 1
 ?SetupGame@game@@QAEHXZ_clone EQU ?SetupGame_orig@game@@QAEHXZ
+
+;; title screen
+IMPORT_?IMHotSpots@@3PAY03GA = 1
+IMPORT_?CheckShingleUpdate@@YIXXZ = 1
 
 ;;;resourceManager
 
@@ -117,6 +125,7 @@ IMPORT_?ReadLong@resourceManager@@QAEJXZ = 1
 IMPORT_?MakeId@resourceManager@@QAEKPADH@Z = 1
 IMPORT_?Read13@resourceManager@@QAEXPAC@Z = 1
 IMPORT_?ReadBlock@resourceManager@@QAEXPACK@Z = 1
+IMPORT_?MAKEFILEID@@YIKPAD@Z = 1
 
 ;;creatures
 
@@ -130,15 +139,40 @@ IMPORT_?GetMonsterCost@@YIXHQAH@Z = 1
 ;;armies
 
 IMPORT_??0armyGroup@@QAE@XZ = 1
+IMPORT_?Walk@army@@QAEXHHH@Z = 1
 
 ;;game
 IMPORT_?GetRandomNumTroops@game@@QAEHH@Z = 1
 IMPORT_?NextPlayer@game@@QAEXXZ = 1
 ?NextPlayer@game@@QAEXXZ_clone EQU ?NextPlayer_orig@game@@QAEXXZ
 
+IMPORT_?HandleAppSpecificMenuCommands@@YIHH@Z = 1
+?HandleAppSpecificMenuCommands@@YIHH@Z_clone EQU ?HandleAppSpecificMenuCommands_orig@@YIHH@Z
+IMPORT_?SetRandomHeroArmies@game@@QAEXHH@Z = 1
+IMPORT_?GiveTroopsToNeutralTown@game@@QAEXH@Z = 1
+IMPORT_?ProcessOnMapHeroes@game@@QAEXXZ = 1
+
 ;;game loop - windows messaging (for lowering cpu usage)
 IMPORT_?Process1WindowsMessage@@YIXXZ = 1
 ?Process1WindowsMessage@@YIXXZ_clone EQU ?Process1WindowsMessage_orig@@YIXXZ
+
+;;sound
+;;IMPORT___imp__AIL_redbook_play@12 = 1
+IMPORT_?CDPlay@soundManager@@QAEXHHHH@Z = 1
+?CDPlay@soundManager@@QAEXHHHH@Z_clone EQU CDPlay_orig@soundManager@@QAEXHHHH@Z
+IMPORT_?CDStop@soundManager@@QAEXXZ = 1
+?CDStop@soundManager@@QAEXXZ_clone EQU ?CDStop_orig@soundManager@@QAEXXZ
+IMPORT_?CDSetVolume@soundManager@@QAEXHH@Z = 1
+?CDSetVolume@soundManager@@QAEXHH@Z_clone EQU ?CDSetVolume_orig@soundManager@@QAEXHH@Z
+IMPORT_?ConvertVolume@soundManager@@QAEHHH@Z = 1
+?ConvertVolume@soundManager@@QAEHHH@Z_clone EQU ?ConvertVolume_orig@soundManager@@QAEHHH@Z
+IMPORT_?CDStartup@soundManager@@QAEXXZ = 1
+?CDStartup@soundManager@@QAEXXZ_clone EQU ?CDStartup_orig@soundManager@@QAEXXZ
+IMPORT_?CDShutdown@soundManager@@QAEXXZ = 1
+?CDShutdown@soundManager@@QAEXXZ_clone EQU ?CDShutdown_orig@soundManager@@QAEXXZ
+IMPORT_?CDIsPlaying@soundManager@@QAEHXZ = 1
+?CDIsPlaying@soundManager@@QAEHXZ_clone EQU ?CDIsPlaying_orig@soundManager@@QAEHXZ
+useOpera EQU ?useOpera@@3HA
 
 ;;hero
 IMPORT_??0hero@@QAE@XZ = 1
@@ -171,11 +205,35 @@ IMPORT_?DoAttack@army@@QAEXH@Z = 1
 IMPORT_?SpecialAttack@army@@QAEXXZ = 1
 ?SpecialAttack@army@@QAEXXZ_clone EQU ?SpecialAttack_orig@army@@QAEXXZ
 IMPORT_?PowEffect@army@@QAEXHHHH@Z = 1
+IMPORT_?OppositeDirection@@YIHH@Z = 1
+IMPORT_?LowerDoor@combatManager@@QAEXXZ = 1
+IMPORT_?FlyTo@army@@QAEHH@Z = 1
+IMPORT_?BuildTempWalkSeq@@YIXPAUSMonFrameInfo@@HH@Z = 1
+IMPORT_?DamageEnemy@army@@QAEXPAV1@PAH1HH@Z = 1
+IMPORT_?DecrementSpellRounds@army@@QAEXXZ = 1
+IMPORT_?SetSpellInfluence@army@@QAEHHH@Z = 1
+IMPORT_?CancelIndividualSpell@army@@QAEXH@Z = 1
+IMPORT_?CastSpell@combatManager@@QAEXHHHH@Z = 1
+IMPORT_?InitClean@army@@QAEXXZ = 1
+IMPORT_?ShowSpellMessage@combatManager@@QAEXHHPAVarmy@@@Z = 1
+IMPORT_?WalkTo@army@@QAEHH@Z = 1
+IMPORT_?ValidPath@army@@QAEHHH@Z = 1
+IMPORT_?FindPath@army@@QAEHHHHHH@Z = 1
+?FindPath@army@@QAEHHHHHH@Z_clone EQU ?FindPath_orig@army@@QAEHHHHHH@Z
+IMPORT_?SetupCombat@combatManager@@QAEXHHPAVhero@@PAVarmyGroup@@PAVtown@@01HHH@Z = 1
+?SetupCombat@combatManager@@QAEXHHPAVhero@@PAVarmyGroup@@PAVtown@@01HHH@Z_clone EQU ?SetupCombat_orig@combatManager@@QAEXHHPAVhero@@PAVarmyGroup@@PAVtown@@01HHH@Z
+IMPORT_?ResetRound@combatManager@@QAEXXZ = 1
+?ResetRound@combatManager@@QAEXXZ_clone EQU ?ResetRound_orig@combatManager@@QAEXXZ
+IMPORT_?Init@army@@QAEXHHHHHH@Z = 1
+?Init@army@@QAEXHHHHHH@Z_clone EQU ?Init_orig@army@@QAEXHHHHHH@Z
+IMPORT_?AttackTo@army@@QAEHH@Z = 1
+?AttackTo@army@@QAEHH@Z_clone EQU IMPORT_?AttackTo_orig@army@@QAEHH@Z
 
 ;;heroes
 IMPORT_?cHeroTypeInitial@@3PADA = 1
 IMPORT_?sCmbtHero@@3PAUSCmbtHero@@A = 1
 IMPORT_?gAlignmentNames@@3PAPADA = 1
+IMPORT_?gHeroSkillBonus@@3PAY113CA = 1
 
 ;; adventure map
 IMPORT_?SetVisibility@game@@QAEXHHHH@Z = 1
@@ -219,8 +277,12 @@ IMPORT_?Resurrect@combatManager@@QAEXHHH@Z = 1
 IMPORT_?DimensionDoor@advManager@@QAEXXZ = 1
 IMPORT_?SpellCastWorkChance@army@@QAEMH@Z = 1
 ?SpellCastWorkChance@army@@QAEMH@Z_clone EQU ?SpellCastWorkChance_orig@army@@QAEMH@Z
+IMPORT_?SpellMessage@combatManager@@QAEXHH@Z = 1
+IMPORT_?ValidSpellTarget@combatManager@@QAEHHH@Z = 1
 
 ;;towns
+IMPORT_?gTownEligibleBuildMask@@3PAKA = 1
+
 IMPORT_?SetupTowns@game@@QAEXXZ = 1
 IMPORT_?SetupMage@townManager@@QAEXPAVheroWindow@@@Z = 1
 IMPORT_?RecruitHero@townManager@@QAEHHH@Z = 1
